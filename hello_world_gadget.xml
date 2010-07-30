@@ -12,6 +12,13 @@
     <!-- This one is not specific to Gmail contextual gadgets. -->
     <Require feature="dynamic-height"/>
 
+    <!-- This isolates the gadget from others on the same page because it will
+         do contacts stuff. -->
+    <Require feature="locked-domain"/>
+
+    <!-- OAuth for some contacts access -->
+    <OAuth/>
+
     <!-- The next feature, Caja, is optional, and is supported for
      use only within test domains. Uncomment the tag only for
      non-production gadgets. -->
