@@ -97,6 +97,7 @@
                         jQuery('body').html('Authenticate!');
                     } else if (response.data) {
                         jQuery('body').html('Cool. Got data');
+                        console.log(response.data)
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
                     }
