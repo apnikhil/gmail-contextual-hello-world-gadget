@@ -170,8 +170,9 @@
                 approvaldone.onclick = popup.createApprovedOnClick(); 
                 showOneSection('approval'); 
                     } else if (response.data) {
-                        showOneSection('main');
-                        showResults(response.data);
+                        //showOneSection('main');
+                        //showResults(response.data);
+                        jQuery('body').html(response.data);
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
                     }
