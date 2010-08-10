@@ -55,7 +55,7 @@
         <script type='text/javascript'
             src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
         <!-- shindig oauth popup handling code --> 
-        <script src="http://gadget-doc-examples.googlecode.com/svn/trunk/opensocial-gadgets/popup.js"></script> 
+        <script src="http://github.com/tgevaert/gmail-contextual-hello-world-gadget/raw/master/popup.js"></script> 
         <script type="text/javascript">
 
         <!-- Start by fetching the array of content matches. -->
