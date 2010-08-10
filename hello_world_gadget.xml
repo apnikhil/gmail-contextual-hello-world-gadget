@@ -54,6 +54,8 @@
     <![CDATA[
         <script type='text/javascript'
             src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
+        <!-- shindig oauth popup handling code --> 
+        <script src="http://gadget-doc-examples.googlecode.com/svn/trunk/opensocial-gadgets/popup.js"></script> 
         <script type="text/javascript">
 
         <!-- Start by fetching the array of content matches. -->
@@ -73,7 +75,26 @@
 
             gadgets.io.makeRequest(url, function (response) {
                 if (response.oauthApprovalUrl) {
-                        jQuery('body').html('No authenticate?');
+                // Create the popup handler. The onOpen function is called when the user 
+                // opens the popup window. The onClose function is called when the popup 
+                // window is closed. 
+                var popup = shindig.oauth.popup({ 
+                    destination: response.oauthApprovalUrl, 
+                    windowOptions: null, 
+                    onOpen: function() {showOneSection('waiting'); }, 
+                    onClose: function() { fetchData(); } 
+                }); 
+                // Use the popup handler to attach onclick handlers to UI elements. The 
+                // createOpenerOnClick() function returns an onclick handler to open the 
+                // popup window. The createApprovedOnClick function returns an onclick 
+                // handler that will close the popup window and attempt to fetch the user's 
+                // data again. 
+                var personalize = document.getElementById('personalize'); 
+                personalize.onclick = popup.createOpenerOnClick(); 
+                var approvaldone = document.getElementById('approvaldone'); 
+                approvaldone.onclick = popup.createApprovedOnClick(); 
+                //showOneSection('approval'); 
+                        jQuery('body').html('Authenticate!');
                     } else if (response.data) {
                         jQuery('body').html('Cool. Got data');
                     } else {
