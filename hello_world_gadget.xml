@@ -168,11 +168,10 @@
                 personalize.onclick = popup.createOpenerOnClick(); 
                 var approvaldone = document.getElementById('approvaldone'); 
                 approvaldone.onclick = popup.createApprovedOnClick(); 
-                //showOneSection('approval'); 
-                        jQuery('body').html('Authenticate!');
+                showOneSection('approval'); 
                     } else if (response.data) {
-                        jQuery('body').html('Cool. Got data');
-                        console.log(response.data)
+                        showOneSection('main');
+                        showResults(response.data);
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
                     }
