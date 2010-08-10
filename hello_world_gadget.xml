@@ -115,8 +115,8 @@
           var titleElement = document.createElement('div');
           var nameNode = document.createTextNode(result.feed.title.$t);
           titleElement.appendChild(nameNode);
-          document.getElementById("main").appendChild(titleElement);
-          document.getElementById("main").appendChild(document.createElement("br"));
+          document.body.appendChild(titleElement);
+          document.body.appendChild(document.createElement("br"));
 
           list = result.feed.entry;
 
@@ -129,7 +129,7 @@
               var valueNode = document.createTextNode(entry.gd$email[0].address);
               divElement.appendChild(valueNode);
             }
-            document.getElementById("main").appendChild(divElement);
+            document.body.appendChild(divElement);
           }
         }
 
@@ -170,9 +170,8 @@
                 approvaldone.onclick = popup.createApprovedOnClick(); 
                 showOneSection('approval'); 
                     } else if (response.data) {
-                        //showOneSection('main');
-                        //showResults(response.data);
-                        jQuery('body').html(response.data);
+                        showOneSection('main');
+                        showResults(response.data);
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
                     }
