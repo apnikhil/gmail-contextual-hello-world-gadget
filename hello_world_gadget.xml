@@ -115,8 +115,8 @@
           var titleElement = document.createElement('div');
           var nameNode = document.createTextNode(result.feed.title.$t);
           titleElement.appendChild(nameNode);
-          document.body.appendChild(titleElement);
-          document.body.appendChild(document.createElement("br"));
+          jQuery('body').append(titleElement);
+          jQuery('body').append(document.createElement("br"));
 
           list = result.feed.entry;
 
@@ -129,7 +129,7 @@
               var valueNode = document.createTextNode(entry.gd$email[0].address);
               divElement.appendChild(valueNode);
             }
-            document.body.appendChild(divElement);
+            jQuery('body').append(divElement);
           }
         }
 
@@ -171,8 +171,8 @@
                 showOneSection('approval'); 
                     } else if (response.data) {
                         //showOneSection('main');
-                        //showResults(response.data);
-                        jQuery('body').html('Got Here!');
+                        showResults(response.data);
+                        //jQuery('body').html('Got Here!');
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
                     }
