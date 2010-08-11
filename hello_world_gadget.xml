@@ -111,26 +111,27 @@
         // Process returned JSON feed to display data.
         function showResults(result) {
           //showOneSection('main');
+          jQuery('body').html(result.feed.title$t);
 
-          var titleElement = document.createElement('div');
-          var nameNode = document.createTextNode(result.feed.title.$t);
-          titleElement.appendChild(nameNode);
-          jQuery('body').append(titleElement);
-          jQuery('body').append(document.createElement("br"));
+          //var titleElement = document.createElement('div');
+          //var nameNode = document.createTextNode(result.feed.title.$t);
+          //titleElement.appendChild(nameNode);
+          //jQuery('body').append(titleElement);
+          //jQuery('body').append(document.createElement("br"));
 
-          list = result.feed.entry;
+          //list = result.feed.entry;
 
-          for(var i = 0; i < list.length; i++) {
-            entry = list[i];
-            var divElement = document.createElement('div');
-            divElement.setAttribute('class', 'name');
-            divElement.appendChild(nameNode);
-            if (entry.gd$email) {
-              var valueNode = document.createTextNode(entry.gd$email[0].address);
-              divElement.appendChild(valueNode);
-            }
-            jQuery('body').append(divElement);
-          }
+          //for(var i = 0; i < list.length; i++) {
+          //  entry = list[i];
+          //  var divElement = document.createElement('div');
+          //  divElement.setAttribute('class', 'name');
+          //  divElement.appendChild(nameNode);
+          //  if (entry.gd$email) {
+          //    var valueNode = document.createTextNode(entry.gd$email[0].address);
+          //    divElement.appendChild(valueNode);
+          //  }
+          //  jQuery('body').append(divElement);
+          //}
         }
 
         <!-- Start by fetching the array of content matches. -->
