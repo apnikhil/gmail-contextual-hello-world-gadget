@@ -111,7 +111,7 @@
         // Process returned JSON feed to display data.
         function showResults(result) {
           //showOneSection('main');
-          jQuery('body').html(result.feed.title$t);
+          jQuery('body').html(result.feed.title.$t);
 
           //var titleElement = document.createElement('div');
           //var nameNode = document.createTextNode(result.feed.title.$t);
