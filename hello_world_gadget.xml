@@ -210,7 +210,7 @@
         //}
         //jQuery('body').html('jQuery, Dog');
         //document.body.appendChild(matchList);
-        //gadgets.window.adjustHeight(200);
+        gadgets.window.adjustHeight(200);
       </script>
     ]]>
   </Content>
