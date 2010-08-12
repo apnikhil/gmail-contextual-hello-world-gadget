@@ -108,10 +108,20 @@
           }
         }
 
+
         // Process returned JSON feed to display data.
         function showResults(result) {
           //showOneSection('main');
           jQuery('body').html(result.feed.title.$t);
+          jQuery('body').append('<div id="accordian"></div>');
+          jQuery('div#accordian').append('<h3><a href="#">Foo</a></h3>');
+          jQuery('div#accordian').append('<div><p>Hello, my name is Foo B. Bar</p></div>');
+          jQuery('div#accordian').append('<h3><a href="#">Bar</a></h3>');
+          jQuery('div#accordian').append('<div><p>Hello, my name is BaBar.  I am an elephant.</p></div>');
+          $(function() {
+                $('div#accordian').accordian();
+                });
+
 
           //var titleElement = document.createElement('div');
           //var nameNode = document.createTextNode(result.feed.title.$t);
@@ -133,7 +143,6 @@
           //  jQuery('body').append(divElement);
           //}
         }
-
         <!-- Start by fetching the array of content matches. -->
         matches = google.contentmatch.getContentMatches();
         var matchList = document.createElement('UL');
