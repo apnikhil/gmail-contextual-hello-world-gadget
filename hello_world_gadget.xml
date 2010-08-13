@@ -118,7 +118,7 @@
           resultList = result.feed.entry;
           for(var i = 0; i < resultList.length; i++) {
               entry = resultList[i];
-              jQuery('div#accordion').append('<h3><a href="#">' + entry.title +  '</a></h3>');
+              jQuery('div#accordion').append('<h3><a href="#">' + entry.title.$t +  '</a></h3>');
               jQuery('div#accordion').append('<div><p>' + entry.gd$email[0].address + '</p></div>');
           }
           $(function() {
@@ -146,6 +146,8 @@
           //  jQuery('body').append(divElement);
           //}
         }
+
+
 
         <!-- Start by fetching the array of content matches. -->
         matches = google.contentmatch.getContentMatches();
