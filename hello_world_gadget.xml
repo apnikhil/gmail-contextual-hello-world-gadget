@@ -118,7 +118,7 @@
           jQuery('body').append('<div id="accordion"></div>');
           resultList = result.feed.entry;
           for(var i = 0; i < resultList.length; i++) {
-              entry = list[i];
+              entry = resultList[i];
               jQuery('div#accordion').append('<h3><a href="#">' + entry.title +  '</a></h3>');
               jQuery('div#accordion').append('<div><p>' + entry.g$email[0].address + '</p></div>');
           }
