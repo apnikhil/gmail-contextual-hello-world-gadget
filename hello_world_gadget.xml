@@ -110,7 +110,6 @@
           }
         }
 
-
         // Process returned JSON feed to display data.
         function showResults(result) {
           //showOneSection('main');
@@ -120,7 +119,7 @@
           for(var i = 0; i < resultList.length; i++) {
               entry = resultList[i];
               jQuery('div#accordion').append('<h3><a href="#">' + entry.title +  '</a></h3>');
-              jQuery('div#accordion').append('<div><p>' + entry.g$email[0].address + '</p></div>');
+              jQuery('div#accordion').append('<div><p>' + entry.gd$email[0].address + '</p></div>');
           }
           $(function() {
                 $('div#accordion').accordion();
