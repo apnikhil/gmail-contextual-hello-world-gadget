@@ -121,6 +121,7 @@
               entry = list[i];
               jQuery('div#accordion').append('<h3><a href="#">' + entry.title +  '</a></h3>');
               jQuery('div#accordion').append('<div><p>' + entry.g$email[0].address + '</p></div>');
+          }
           $(function() {
                 $('div#accordion').accordion();
                 });
