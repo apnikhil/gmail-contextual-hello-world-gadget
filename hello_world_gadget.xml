@@ -147,6 +147,14 @@
           //}
         }
 
+        // Extract contact id url
+        function extractContactID(results, address) {
+            for (var result in results){
+                if (result.gd$email[0].address == address)
+                    return result.id.$t;
+                }
+        }
+
 
 
         <!-- Start by fetching the array of content matches. -->
@@ -192,9 +200,9 @@
                 approvaldone.onclick = popup.createApprovedOnClick(); 
                 showOneSection('approval'); 
                     } else if (response.data) {
-                        //showOneSection('main');
                         showResults(response.data);
-                        //jQuery('body').html('Got Here!');
+                        jQuery('body').html(extractContactID(response.data,
+                                            senderAddress))
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
                     }
