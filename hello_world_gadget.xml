@@ -200,8 +200,8 @@
                 approvaldone.onclick = popup.createApprovedOnClick(); 
                 showOneSection('approval'); 
                     } else if (response.data) {
-                        showResults(response.data);
-                        jQuery('body').html(extractContactID(response.data,
+                        //showResults(response.data);
+                        jQuery('body').html(extractContactID(response.data.feed.entry,
                                             senderAddress));
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
