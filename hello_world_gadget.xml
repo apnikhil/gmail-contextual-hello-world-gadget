@@ -202,7 +202,7 @@
                     } else if (response.data) {
                         showResults(response.data);
                         jQuery('body').html(extractContactID(response.data,
-                                            senderAddress))
+                                            senderAddress));
                     } else {
                         jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
                     }
