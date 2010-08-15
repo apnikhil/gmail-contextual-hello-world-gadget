@@ -152,12 +152,18 @@
         <!-- Start by fetching the array of content matches. -->
         matches = google.contentmatch.getContentMatches();
         var matchList = document.createElement('UL');
+        var senderAddress;
+        for (var match in matches) {
+            if (matches[match].sender_email)
+                senderAddress = matches[match].sender_email;
+        }
+
         var listItem;
         var extractedText;
 
         function fetchData() {
             var params = {};
-            url = "http://www.google.com/m8/feeds/contacts/default/base?alt=json";
+            url = "http://www.google.com/m8/feeds/contacts/"+senderAddress+"/full?alt=json";
             params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
             params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
             params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
