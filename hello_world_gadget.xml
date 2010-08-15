@@ -150,8 +150,8 @@
         // Extract contact id url
         function extractContactID(results, address) {
             for (var result in results){
-                if (result.gd$email[0].address == address)
-                    return result.id.$t;
+                if (results[result].gd$email[0].address == address)
+                    return results[result].id.$t;
                 }
         }
 
