@@ -169,6 +169,19 @@
         var listItem;
         var extractedText;
 
+        // Extract contact Name & Groups
+        function printNameAndGroups (contact) {
+            jQuery('body').html(contact.title.$t);
+            for (var group in contact.gContact$groupMembershipInfo){
+                if (contact.gContact$groupMembershipInfo[group].deleted == "false")
+                    gadgets.io.makeRequest(contact.gContact$groupMembershipInfo[group].href+'?alt=json',
+                                           function (response) {
+                                                jQuery('body').append(response.data.feed.title.t$+'<br>');
+                                           }, params);
+        }
+
+
+
         function fetchData() {
             var params = {};
             url = "http://www.google.com/m8/feeds/contacts/default/base?alt=json";
@@ -203,8 +216,7 @@
                     //showResults(response.data);
                     emailSender = extractContactID(response.data.feed.entry, senderAddress);
                     gadgets.io.makeRequest(emailSender.replace('/base/','/full/')+'?alt=json', function (response) {
-                        //console.log(response);
-                        jQuery('body').html('Cool. Got a response');
+                        nameAndGroups = extractContactNameGroup(response.data.entry);
                     }, params);
                 } else {
                     jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
@@ -212,7 +224,6 @@
                 }, params);
         }
         gadgets.util.registerOnLoadHandler(fetchData);
-
 
 
                     
