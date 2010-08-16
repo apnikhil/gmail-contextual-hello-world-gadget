@@ -178,6 +178,7 @@
                                            function (response) {
                                                 jQuery('body').append(response.data.feed.title.t$+'<br>');
                                            }, params);
+            }
         }
 
 
