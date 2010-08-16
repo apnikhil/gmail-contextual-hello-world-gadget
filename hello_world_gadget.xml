@@ -201,7 +201,7 @@
                     showOneSection('approval'); 
                 } else if (response.data) {
                     //showResults(response.data);
-                    emailSender = extractContactID(response.data.feed.entry, senderAddress));
+                    emailSender = extractContactID(response.data.feed.entry, senderAddress);
                     gadgets.io.makeRequest(emailSender, function (response) {
                         //console.log(response);
                         jQuery('body').html('Cool. Got a response');
