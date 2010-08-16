@@ -217,7 +217,7 @@
                     //showResults(response.data);
                     emailSender = extractContactID(response.data.feed.entry, senderAddress);
                     gadgets.io.makeRequest(emailSender.replace('/base/','/full/')+'?alt=json', function (response) {
-                        nameAndGroups = extractContactNameGroup(response.data.entry);
+                        printNameAndGroups(response.data.entry);
                     }, params);
                 } else {
                     jQuery('body').html('ERROR' + response.oauthError + ': ' + response.oauthErrorText);
