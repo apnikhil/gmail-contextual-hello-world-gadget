@@ -202,7 +202,7 @@
                 } else if (response.data) {
                     //showResults(response.data);
                     emailSender = extractContactID(response.data.feed.entry, senderAddress);
-                    gadgets.io.makeRequest(emailSender, function (response) {
+                    gadgets.io.makeRequest(emailSender+'?alt=json', function (response) {
                         //console.log(response);
                         jQuery('body').html('Cool. Got a response');
                     }, params);
