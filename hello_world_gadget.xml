@@ -171,6 +171,12 @@
 
         // Extract contact Name & Groups
         function printNameAndGroups (contact) {
+            var params = {};
+            params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+            params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.OAUTH;
+            params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
+            params[gadgets.io.RequestParameters.OATH_USE_TOKEN] = "always";
+            params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
             jQuery('body').html(contact.title.$t);
             for (var group in contact.gContact$groupMembershipInfo){
                 if (contact.gContact$groupMembershipInfo[group].deleted == "false")
