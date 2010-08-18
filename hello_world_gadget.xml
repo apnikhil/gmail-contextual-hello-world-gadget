@@ -177,12 +177,12 @@
             params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
             params[gadgets.io.RequestParameters.OATH_USE_TOKEN] = "always";
             params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-            jQuery('body').html(contact.title.$t);
+            jQuery('body').html('<h3>'+contact.title.$t+' is a member of the groups:</h3></br>');
             for (var group in contact.gContact$groupMembershipInfo){
                 if (contact.gContact$groupMembershipInfo[group].deleted == "false")
                     gadgets.io.makeRequest(contact.gContact$groupMembershipInfo[group].href+'?alt=json',
                                            function (response) {
-                                                jQuery('body').append(response.data.entry.title.$t+'<br>');
+                                           jQuery('body').append('<p>'+response.data.entry.title.$t+'</p>');
                                            }, params);
             }
         }
