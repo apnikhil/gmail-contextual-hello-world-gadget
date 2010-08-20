@@ -224,9 +224,7 @@
                     //showResults(response.data);
                     emailSender = extractContactID(response.data.feed.entry, senderAddress);
                     if (emailSender == null) {
-                        jQuery('body').html('This contact is not in your
-                        contact list. Add it?')
-                        
+                        jQuery('body').html('This contact is not in your contact list. Add it?');
                     } else {
                         gadgets.io.makeRequest(emailSender.replace('/base/','/full/')+'?alt=json', function (response) {
                             printNameAndGroups(response.data.entry);
