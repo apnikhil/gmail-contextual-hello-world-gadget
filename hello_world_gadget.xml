@@ -53,6 +53,8 @@
   <Content type="html" view="card">
     <![CDATA[
         <script type='text/javascript'
+            src='http://www.google.com/jsapi'></script>
+        <script type='text/javascript'
             src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
         <script type='text/javascript'
             src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'></script>
@@ -198,6 +200,7 @@
             params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
             params[gadgets.io.RequestParameters.OATH_USE_TOKEN] = "always";
             params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+            google.load('gdata', '1.x', {packages: ['contacts']});
 
             gadgets.io.makeRequest(url, function (response) {
                 if (response.oauthApprovalUrl) {
