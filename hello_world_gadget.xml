@@ -170,6 +170,7 @@
             var email = new google.gdata.Email();
             email.setAddress($('#senderaddress').val());
             email.setPrimary(true);
+            entry.setRel(google.gdata.Email.REL_HOME);
             entry.setEmailAddresses([email]);
 
             var callback = function(result) {
