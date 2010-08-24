@@ -189,8 +189,7 @@
         // Generate link and button to create new contact
         function generateSubmitDiv(emailSender) {
             $('body').append('<div id="contactsubmit"></div>');
-            $('#contactsubmit').append('<h3>Add ' + emailSender + 'to contact
-                list?</h3>');
+            $('#contactsubmit').append('<h3>Add ' + emailSender + 'to contact list?</h3>');
             $('#contactsubmit').append('<input type="Text" id="sendername" />');
             $('#contactsubmit').append('<input type="hidden" value="' + emailSender + '" id="senderaddress" />');
             $('#contactsubmit').append('<input id="b" type="button" value="Add" />')
