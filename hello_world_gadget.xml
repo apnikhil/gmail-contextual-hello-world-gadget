@@ -212,6 +212,7 @@
                 contacts = new google.gdata.contacts.ContactsService('yocto-ContactsGadget-0.01');
                 contacts.useOAuth('google');
                 fetchGData();
+                })
         }
 
         function fetchGData() {
