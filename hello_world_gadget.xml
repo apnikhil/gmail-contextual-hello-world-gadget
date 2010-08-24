@@ -276,7 +276,7 @@
                     emailSender = extractGDataContactID(response.feed.entry, senderAddress);
                     if (emailSender == null) {
                         // Email author is not in contact list.
-                        generateSubmitDiv(emailSender);
+                        generateSubmitDiv(senderAddress);
                     } else {
                         jQuery('body').html('Cool, bro');
                     }
