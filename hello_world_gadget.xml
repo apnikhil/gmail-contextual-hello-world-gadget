@@ -87,6 +87,10 @@
 
 
         <script type="text/javascript">
+
+        var contacts = null; // make service object global
+        var feedUri = 'http://www.google.com/m8/feeds/contacts/default/full';
+
         // Display UI depending on OAuth access state of the gadget (see <divs> above).
         // If user hasn't approved access to data, provide a "Personalize this gadget" link
         // that contains the oauthApprovalUrl returned from makeRequest.
@@ -158,6 +162,17 @@
             return null;
         }
 
+        // Extract contact id url
+        function extractGDataContactID(entries, address) {
+            for (var entry in entries){
+                entry_addresses = entries[entry].getEmailAddresses();
+                for (var entry_address in entry_addresses){
+                    if (entry_addresses[entry_address] == address)
+                        return entries[entry].getId();
+                    }
+                }
+            return null;
+        }
 
 
         <!-- Start by fetching the array of content matches. -->
@@ -191,6 +206,52 @@
         }
 
 
+        function initGadget() {
+            google.load('gdata', '1.x', {packages: ['contacts']});
+            google.setOnLoadCallback(function() {
+                contacts = new google.gdata.contacts.ContactsService('yocto-ContactsGadget-0.01');
+                contacts.useOAuth('google');
+                fetchGData();
+        }
+
+        function fetchGData() {
+            var callback = function(result) {
+                if (response.oauthApprovalUrl) {
+                    // Create the popup handler. The onOpen function is called when the user 
+                    // opens the popup window. The onClose function is called when the popup 
+                    // window is closed. 
+                    var popup = shindig.oauth.popup({ 
+                        destination: response.oauthApprovalUrl, 
+                        windowOptions: null, 
+                        onOpen: function() {showOneSection('waiting'); }, 
+                        onClose: function() { fetchData(); } 
+                    }); 
+                    // Use the popup handler to attach onclick handlers to UI elements. The 
+                    // createOpenerOnClick() function returns an onclick handler to open the 
+                    // popup window. The createApprovedOnClick function returns an onclick 
+                    // handler that will close the popup window and attempt to fetch the user's 
+                    // data again. 
+                    var personalize = document.getElementById('personalize'); 
+                    personalize.onclick = popup.createOpenerOnClick(); 
+                    var approvaldone = document.getElementById('approvaldone'); 
+                    approvaldone.onclick = popup.createApprovedOnClick(); 
+                    showOneSection('approval'); 
+                } else if (response.feed) {
+                    emailSender = extractGDataContactID(response.feed.entry, senderAddress);
+                    if (emailSender == null) {
+                        jQuery('body').html('This contact is not in your contact list. Add it?');
+                    } else {
+                        jQuery('body').html('Cool, bro');
+                    }
+
+                } else {
+                }
+            }
+            
+                    
+            
+        }
+
 
         function fetchData() {
             var params = {};
@@ -200,7 +261,6 @@
             params[gadgets.io.RequestParameters.OAUTH_SERVICE_NAME] = "google";
             params[gadgets.io.RequestParameters.OATH_USE_TOKEN] = "always";
             params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-            google.load('gdata', '1.x', {packages: ['contacts']});
 
             gadgets.io.makeRequest(url, function (response) {
                 if (response.oauthApprovalUrl) {
@@ -238,7 +298,7 @@
                 }
                 }, params);
         }
-        gadgets.util.registerOnLoadHandler(fetchData);
+        gadgets.util.registerOnLoadHandler(initGadget);
 
 
                     
