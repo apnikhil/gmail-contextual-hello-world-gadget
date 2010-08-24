@@ -248,9 +248,7 @@
                 } else {
                 }
             }
-            
-                    
-            
+            contacts.getContactFeed(feedUri, callback, callback);
         }
 
 
