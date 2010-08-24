@@ -216,7 +216,7 @@
         }
 
         function fetchGData() {
-            var callback = function(result) {
+            var callback = function(response) {
                 if (response.oauthApprovalUrl) {
                     // Create the popup handler. The onOpen function is called when the user 
                     // opens the popup window. The onClose function is called when the popup 
