@@ -170,7 +170,8 @@
             var email = new google.gdata.Email();
             email.setAddress($('#senderaddress').val());
             email.setPrimary(true);
-            entry.setRel(google.gdata.Email.REL_HOME);
+            email.setRel(google.gdata.Email.REL_HOME);
+
             entry.setEmailAddresses([email]);
 
             var callback = function(result) {
@@ -190,7 +191,7 @@
         // Generate link and button to create new contact
         function generateSubmitDiv(emailSender) {
             $('body').append('<div id="contactsubmit"></div>');
-            $('#contactsubmit').append('<h3>Add ' + emailSender + 'to contact list?</h3>');
+            $('#contactsubmit').append('<h3>Add ' + emailSender + ' to contact list?</h3><br />Name: ');
             $('#contactsubmit').append('<input type="Text" id="sendername" />');
             $('#contactsubmit').append('<input type="hidden" value="' + emailSender + '" id="senderaddress" />');
             $('#contactsubmit').append('<input id="b" type="button" value="Add" />')
