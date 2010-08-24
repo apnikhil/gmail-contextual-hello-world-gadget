@@ -167,7 +167,7 @@
             for (var entry in entries){
                 entry_addresses = entries[entry].getEmailAddresses();
                 for (var entry_address in entry_addresses){
-                    if (entry_addresses[entry_address] == address)
+                    if (entry_addresses[entry_address].address == address)
                         return entries[entry].getId();
                     }
                 }
