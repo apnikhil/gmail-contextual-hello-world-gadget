@@ -84,6 +84,7 @@
             once you've approved access to your data.
         </div> -->
 
+        <div id="contactinfo"></div>
 
 
 
@@ -202,7 +203,6 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append('<div id="contactinfo"></div>');
             $('div#contactinfo').append('<h3>'+emailSenderContact.getTitle().$t+'</h3>');
             $('div#contactinfo').append('is a member of the groups:');
             $('div#contactinfo').append('<ul id="grouplist"></ul>');
