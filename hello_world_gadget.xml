@@ -203,7 +203,13 @@
 
         function generateInfoDiv(emailSenderContact) {
             $('body').append('<div id="contactinfo"></div>');
-            $('#contactinfo').append('<h3>'+emailSenderContact+'</h3>');
+            $('div#contactinfo').append('<h3>'+emailSenderContact.getTitle()+'</h3>');
+            $('div#contactinfo').append('is a member of the groups:');
+            $('div#contactinfo').append('<ul id="grouplist"></ul>');
+            var groupList = emailSenderContact.getGroupMembershipInfos();
+            for (var group in groupList) {
+                $('ul#grouplist').append('<li>'+groupList[group].getTitle()+'</li>');
+            }
 
         }
 
@@ -289,9 +295,9 @@
                         generateSubmitDiv(senderAddress);
                     } else {
                         // Email author is in the contact list.
-                        $('body').append('Cool story, bro');
+                        //$('body').append('Cool story, bro');
                         console.log(emailSenderContact);
-                        //generateInfoDiv(emailSenderContact);
+                        generateInfoDiv(emailSenderContact);
 
                     }
 
