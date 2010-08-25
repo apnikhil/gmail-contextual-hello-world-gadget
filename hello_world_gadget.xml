@@ -211,6 +211,7 @@
                 var groupHref = groupList[group].getHref();
                 contacts.getContactGroupEntry(groupHref, function(result) {
                     $('ul#grouplist').append('<li>'+result.entry.getTitle().$t+'</li>');
+                    }, console.log);
             }
 
         }
