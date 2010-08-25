@@ -86,7 +86,7 @@
 
         <div id="loadinggadget"><h2>Loading Gadget</h2></div>
         <div id="loadingjsapi" style="display: none"><h2>Loading JSAPI</h2></div>
-        <div id="contactinfo"></div>
+        <div id="contactinfo"><h3></h3><ul id="grouplist"></ul></div>
 
 
 
@@ -206,9 +206,7 @@
 
         function generateInfoDiv(emailSenderContact) {
             $('body').append("Newer Version");
-            $('div#contactinfo').append('<h3>'+emailSenderContact.getTitle().$t+'</h3>');
-            $('div#contactinfo').append('is a member of the groups:');
-            $('div#contactinfo').append('<ul id="grouplist"></ul>');
+            $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + 'is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
             for (var group in groupList) {
                 var groupHref = groupList[group].getHref();
