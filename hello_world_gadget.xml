@@ -84,6 +84,8 @@
             once you've approved access to your data.
         </div> -->
 
+        <div id="loadinggadget"><h2>Loading Gadget</h2></div>
+        <div id="loadingjsapi" style="display: none"><h2>Loading JSAPI</h2></div>
         <div id="contactinfo"></div>
 
 
@@ -262,8 +264,12 @@
 
 
         function initGadget() {
+            gadgets.window.adjustHeight(200);
+            $('#loadinggadget').hide('slide');
+            $('#loadingjsapi').show('slide');
             google.load('gdata', '1.x', {packages: ['contacts']});
             google.setOnLoadCallback(function() {
+                $('#loadingjsapi').hide('slide');
                 contacts = new google.gdata.contacts.ContactsService('yocto-ContactsGadget-0.01');
                 contacts.useOAuth('google');
                 fetchGData();
@@ -306,6 +312,7 @@
                     }
 
                 } else {
+                    $('body').append('THIS SHOULD NOT HAPPEN');
                 }
             }
             contacts.getContactFeed(feedUri, callback, callback);
@@ -374,7 +381,6 @@
         //}
         //jQuery('body').html('jQuery, Dog');
         //document.body.appendChild(matchList);
-        gadgets.window.adjustHeight(200);
       </script>
     ]]>
   </Content>
