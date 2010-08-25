@@ -205,7 +205,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Newer Version");
+            $('body').append("Newest Version");
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + 'is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
             for (var group in groupList) {
