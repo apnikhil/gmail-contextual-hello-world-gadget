@@ -205,17 +205,17 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("New Version");
+            $('body').append("Newer Version");
             $('div#contactinfo').append('<h3>'+emailSenderContact.getTitle().$t+'</h3>');
             $('div#contactinfo').append('is a member of the groups:');
-            //$('div#contactinfo').append('<ul id="grouplist"></ul>');
-            //var groupList = emailSenderContact.getGroupMembershipInfos();
-            //for (var group in groupList) {
-            //    var groupHref = groupList[group].getHref();
-            //    contacts.getContactGroupEntry(groupHref, function(result) {
-            //        $('ul#grouplist').append('<li>'+result.entry.getTitle().$t+'</li>');
-            //        }, console.log);
-            //}
+            $('div#contactinfo').append('<ul id="grouplist"></ul>');
+            var groupList = emailSenderContact.getGroupMembershipInfos();
+            for (var group in groupList) {
+                var groupHref = groupList[group].getHref();
+                contacts.getContactGroupEntry(groupHref, function(result) {
+                    $('ul#grouplist').append('<li>'+result.entry.getTitle().$t+'</li>');
+                    }, console.log);
+            }
 
         }
 
