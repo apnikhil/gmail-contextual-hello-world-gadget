@@ -201,13 +201,19 @@
             $('input#b').click(addContact);
         }
 
-        // Extract contact id url
-        function extractGDataContactID(entries, address) {
+        function generateInfoDiv(emailSenderContact) {
+            $('body').append('<div id="contactinfo"></div>');
+            $('#contactinfo').append('<h3>'+emailSenderContact+'</h3>');
+
+        }
+
+        // Find the appropriate contact, return it.
+        function extractGDataContact(entries, address) {
             for (var entry in entries){
                 entry_addresses = entries[entry].getEmailAddresses();
                 for (var entry_address in entry_addresses){
                     if (entry_addresses[entry_address].address == address)
-                        return entries[entry].getId();
+                        return entries[entry];
                     }
                 }
             return null;
@@ -277,12 +283,16 @@
                     approvaldone.onclick = popup.createApprovedOnClick(); 
                     showOneSection('approval'); 
                 } else if (response.feed) {
-                    emailSender = extractGDataContactID(response.feed.entry, senderAddress);
-                    if (emailSender == null) {
+                    emailSenderContact = extractGDataContact(response.feed.entry, senderAddress);
+                    if (emailSenderContact == null) {
                         // Email author is not in contact list.
                         generateSubmitDiv(senderAddress);
                     } else {
-                        jQuery('body').html('Cool, bro');
+                        // Email author is in the contact list.
+                        $('body').append('Cool story, bro');
+                        console.log(emailSenderContact);
+                        //generateInfoDiv(emailSenderContact);
+
                     }
 
                 } else {
