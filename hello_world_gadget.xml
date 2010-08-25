@@ -203,6 +203,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
+            $('body').append("New Version");
             $('div#contactinfo').append('<h3>'+emailSenderContact.getTitle().$t+'</h3>');
             $('div#contactinfo').append('is a member of the groups:');
             //$('div#contactinfo').append('<ul id="grouplist"></ul>');
@@ -299,7 +300,7 @@
                     } else {
                         // Email author is in the contact list.
                         //$('body').append('Cool story, bro');
-                        console.log(emailSenderContact);
+                        //console.log(emailSenderContact);
                         generateInfoDiv(emailSenderContact);
 
                     }
