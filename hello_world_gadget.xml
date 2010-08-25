@@ -60,6 +60,7 @@
             src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js'></script>
         <!-- shindig oauth popup handling code --> 
         <script src="http://github.com/tgevaert/gmail-contextual-hello-world-gadget/raw/master/popup.js"></script> 
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/start/jquery-ui.css" type="text/css" media="screen" />
 
         <style>
         #main {
@@ -172,7 +173,8 @@
             email.setPrimary(true);
             email.setRel(google.gdata.Email.REL_HOME);
 
-            entry.setEmailAddresses([email]);
+            //entry.setEmailAddresses([email]);
+            entry.addEmailAddress(email);
 
             var callback = function(result) {
                 $('body').append('Added!');
