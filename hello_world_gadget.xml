@@ -212,7 +212,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Newest Version + autocomplete");
+            $('body').append("Newest Version + autocomplete + fixed");
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
@@ -348,7 +348,7 @@
             }
 
             contacts.getContactFeed(feedUri, contactCallback, contactCallback);
-            contacts.getContactGroupFeed(groupFeedUri, groupCallback, groupContact);
+            contacts.getContactGroupFeed(groupFeedUri, groupCallback, groupCallback);
         }
 
 
