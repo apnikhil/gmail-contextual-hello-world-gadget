@@ -169,6 +169,18 @@
             return null;
         }
 
+        // Get the Href for the group to add
+        function getGroupHref() {
+            var groupName = $('input#groupinput').val();
+            var groupHref = groupHash[groupName];
+            if (groupHref)
+                return groupHref;
+            // Crap, gotta build a group.
+            return null
+        }
+            
+
+
         // Add contact to contact list.
         function addContact() {
             var entry = new google.gdata.contacts.ContactEntry();
@@ -181,6 +193,10 @@
 
             //entry.setEmailAddresses([email]);
             entry.addEmailAddress(email);
+            var groupHref = getGroupHref()
+            if (groupHref != null){
+                entry.addGroupMembershipInfo({deleted: false, href: groupHref})
+            }
 
             var callback = function(result) {
                 $('body').append('Added!');
@@ -212,7 +228,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Race Condition Fixed?");
+            $('body').append("Trying to add group");
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
