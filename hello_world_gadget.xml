@@ -87,13 +87,16 @@
         <div id="loadinggadget"><h2>Loading Gadget</h2></div>
         <div id="loadingjsapi" style="display: none"><h2>Loading JSAPI</h2></div>
         <div id="contactinfo"><h3></h3><ul id="grouplist"></ul></div>
-
-
+        <div id="groupadd" style="display: none"><input type="Text" id="groupinput" /></div>
 
         <script type="text/javascript">
 
         var contacts = null; // make service object global
         var feedUri = 'http://www.google.com/m8/feeds/contacts/default/full';
+        var groupFeedUri = 'http://www.google.com/m8/feeds/groups/default/full'; 
+        var groupHash = null; // make a group Hash global
+        var groupHashKeys = null; // May as well build this at the same time as
+                                  // the groupHash
 
         // Display UI depending on OAuth access state of the gadget (see <divs> above).
         // If user hasn't approved access to data, provide a "Personalize this gadget" link
@@ -192,6 +195,10 @@
         }
 
 
+        function showGroupTextInput() {
+            $("input#groupinput").autocomplete({ source: groupHashKeys });
+            $("div#groupadd").show();
+        }
 
         // Generate link and button to create new contact
         function generateSubmitDiv(emailSender) {
@@ -205,7 +212,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Newest Version");
+            $('body').append("Newest Version + autocomplete");
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
@@ -282,7 +289,7 @@
         }
 
         function fetchGData() {
-            var callback = function(response) {
+            var contactCallback = function(response) {
                 if (response.oauthApprovalUrl) {
                     // Create the popup handler. The onOpen function is called when the user 
                     // opens the popup window. The onClose function is called when the popup 
@@ -313,14 +320,35 @@
                         //$('body').append('Cool story, bro');
                         //console.log(emailSenderContact);
                         generateInfoDiv(emailSenderContact);
-
+                        showGroupTextInput();
                     }
 
                 } else {
                     $('body').append('THIS SHOULD NOT HAPPEN');
                 }
             }
-            contacts.getContactFeed(feedUri, callback, callback);
+
+            var groupCallback = function(response) {
+                if (response.oauthApprovalUrl) {
+                        // This should be handled by the other callback.
+                    } else if (response.feed) {
+                        groupHash = {};
+                        var entries = result.feed.entry;
+                        for (var entry in entries) {
+                            var groupEntry = entries[entry];
+                            var groupName = groupEntry.getTitle().getText();
+                            groupHash[groupName] = groupEntry.getId().getValue();
+                            groupHashKeys.push(groupName);
+                        }
+
+                    } else {
+                        // Really bad times.
+                        $('body').append('Group feed messed up');
+                    }
+            }
+
+            contacts.getContactFeed(feedUri, contactCallback, contactCallback);
+            contacts.getContactGroupFeed(groupFeedUri, groupCallback, groupContact);
         }
 
 
