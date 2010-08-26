@@ -333,7 +333,7 @@
                         // This should be handled by the other callback.
                     } else if (response.feed) {
                         groupHash = {};
-                        var entries = result.feed.entry;
+                        var entries = response.feed.entry;
                         for (var entry in entries) {
                             var groupEntry = entries[entry];
                             var groupName = groupEntry.getTitle().getText();
