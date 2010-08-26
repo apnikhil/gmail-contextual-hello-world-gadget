@@ -212,7 +212,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Newest Version + autocomplete + fixed");
+            $('body').append("Newest Version + autocomplete + fixed + fixed again");
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
@@ -333,6 +333,7 @@
                         // This should be handled by the other callback.
                     } else if (response.feed) {
                         groupHash = {};
+                        groupHashKeys = [];
                         var entries = response.feed.entry;
                         for (var entry in entries) {
                             var groupEntry = entries[entry];
