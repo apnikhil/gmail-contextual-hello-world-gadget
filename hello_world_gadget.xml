@@ -212,7 +212,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Newest Version + autocomplete + fixed + fixed again");
+            $('body').append("Race Condition Fixed?");
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
@@ -320,7 +320,6 @@
                         //$('body').append('Cool story, bro');
                         //console.log(emailSenderContact);
                         generateInfoDiv(emailSenderContact);
-                        showGroupTextInput();
                     }
 
                 } else {
@@ -341,7 +340,7 @@
                             groupHash[groupName] = groupEntry.getId().getValue();
                             groupHashKeys.push(groupName);
                         }
-
+                        showGroupTextInput();
                     } else {
                         // Really bad times.
                         $('body').append('Group feed messed up');
