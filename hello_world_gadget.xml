@@ -188,7 +188,7 @@
             entry.setTitle(google.gdata.Text.create($('#sendername').val()));
 
             var email = new google.gdata.Email();
-            email.setAddress(emailSender);
+            email.setAddress(senderAddress);
             email.setPrimary(true);
             email.setRel(google.gdata.Email.REL_HOME);
 
@@ -226,7 +226,7 @@
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Fixing add contact.");
+            $('body').append("Fixing add contact. v2");
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().getText() + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
