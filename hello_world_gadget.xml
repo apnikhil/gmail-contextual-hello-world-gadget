@@ -87,12 +87,15 @@
         <div id="loadinggadget"><h2>Loading Gadget</h2></div>
         <div id="loadingjsapi" style="display: none"><h2>Loading JSAPI</h2></div>
         <div id="contactinfo"><h3></h3><ul id="grouplist"></ul></div>
+        <div id="contactsubmit" style="display: none"><h3></h3>
+            <label for="sendername">Contact Name:</label><input type="Text" id="sendername" /><input id="b" type="button" value="Add" /></div>
         <div id="groupadd" style="display: none"><input type="Text" id="groupinput" /></div>
 
         <script type="text/javascript">
 
         var contacts = null; // make service object global
         var feedUri = 'http://www.google.com/m8/feeds/contacts/default/full';
+        var emailSender = null; // extract email of message sender
         var groupFeedUri = 'http://www.google.com/m8/feeds/groups/default/full'; 
         var groupHash = null; // make a group Hash global
         var groupHashKeys = null; // May as well build this at the same time as
@@ -179,15 +182,13 @@
             return null
         }
             
-
-
         // Add contact to contact list.
         function addContact() {
             var entry = new google.gdata.contacts.ContactEntry();
             entry.setTitle(google.gdata.Text.create($('#sendername').val()));
 
             var email = new google.gdata.Email();
-            email.setAddress($('#senderaddress').val());
+            email.setAddress(emailSender);
             email.setPrimary(true);
             email.setRel(google.gdata.Email.REL_HOME);
 
@@ -218,22 +219,19 @@
 
         // Generate link and button to create new contact
         function generateSubmitDiv(emailSender) {
-            $('body').append('<div id="contactsubmit"></div>');
-            $('#contactsubmit').append('<h3>Add ' + emailSender + ' to contact list?</h3><br />Name: ');
-            $('#contactsubmit').append('<input type="Text" id="sendername" />');
-            $('#contactsubmit').append('<input type="hidden" value="' + emailSender + '" id="senderaddress" />');
-            $('#contactsubmit').append('<input id="b" type="button" value="Add" />')
+            $('#contactsubmit > h3').append('Add ' + emailSender + ' to contact list?');
             $('input#b').button();
             $('input#b').click(addContact);
+            $('div#contactsubmit').show('blind', 500);
         }
 
         function generateInfoDiv(emailSenderContact) {
-            $('body').append("Trying to add group");
-            $('div#contactinfo > h3').html(emailSenderContact.getTitle().$t + ' is a member of the groups:');
+            $('body').append("Fixing add contact.");
+            $('div#contactinfo > h3').html(emailSenderContact.getTitle().getText() + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
             var callback = function(result) {
-                    $('ul#grouplist').append('<li>' + result.entry.getTitle().$t + '</li>');
+                    $('ul#grouplist').append('<li>' + result.entry.getTitle().getText() + '</li>');
             }
 
             var handleError = function(error) {
@@ -332,9 +330,6 @@
                         // Email author is not in contact list.
                         generateSubmitDiv(senderAddress);
                     } else {
-                        // Email author is in the contact list.
-                        //$('body').append('Cool story, bro');
-                        //console.log(emailSenderContact);
                         generateInfoDiv(emailSenderContact);
                     }
 
