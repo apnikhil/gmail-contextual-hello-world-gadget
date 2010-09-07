@@ -205,7 +205,7 @@
             var groupName = $('input#groupinput').val();
             var groupEntry = new google.gdata.contacts.ContactGroupEntry();
             groupEntry.setTitle(google.gdata.atom.Text.create(groupName));
-            contacts.Service.insertEntry(groupFeedUri, groupEntry, createGroupCallback, handleError);
+            contacts.insertEntry(groupFeedUri, groupEntry, createGroupCallback, handleError);
         }
 
         function addContactToGroup() {
