@@ -259,7 +259,7 @@
 
         // Generate link and button to create new contact
         function generateSubmitDiv() {
-            $('#contactsubmit > h3').append('Add ' + emailSender + ' to contact list?');
+            $('#contactsubmit > h3').append('Add ' + senderAddress + ' to contact list?');
             $('div#contactsubmit').show('blind', 500);
         }
 
@@ -329,6 +329,7 @@
             gadgets.window.adjustHeight(200);
             $('#loadinggadget').hide('slide');
             $('#loadingjsapi').show('slide');
+            $('body').append("Version 0.01");
             google.load('gdata', '1.x', {packages: ['contacts']});
             google.setOnLoadCallback(function() {
                 $('#loadingjsapi').hide('slide');
