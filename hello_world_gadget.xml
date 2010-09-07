@@ -88,14 +88,20 @@
         <div id="loadingjsapi" style="display: none"><h2>Loading JSAPI</h2></div>
         <div id="contactinfo"><h3></h3><ul id="grouplist"></ul></div>
         <div id="contactsubmit" style="display: none"><h3></h3>
-            <label for="sendername">Contact Name:</label><input type="Text" id="sendername" /><input id="b" type="button" value="Add" /></div>
-        <div id="groupadd" style="display: none"><input type="Text" id="groupinput" /></div>
+            <label for="sendername">Contact Name: </label><input type="Text" id="sendername" />
+        </div>
+        <div id="groupadd" style="display: none">
+            <label for="groupinput">Add to group: </label>
+            <input type="Text" id="groupinput" />
+            <input id="b" type="button" value="Add" />
+        </div>
 
         <script type="text/javascript">
 
         var contacts = null; // make service object global
         var feedUri = 'http://www.google.com/m8/feeds/contacts/default/full';
         var emailSender = null; // extract email of message sender
+        var emailSenderContact = null; // fetch appropriate contact address
         var groupFeedUri = 'http://www.google.com/m8/feeds/groups/default/full'; 
         var groupHash = null; // make a group Hash global
         var groupHashKeys = null; // May as well build this at the same time as
@@ -163,6 +169,11 @@
           //}
         }
 
+        function handleError(error) {
+            $('body').append('Frig, error:' + error);
+        }
+                
+
         // Extract contact id url
         function extractContactID(results, address) {
             for (var result in results){
@@ -178,8 +189,34 @@
             var groupHref = groupHash[groupName];
             if (groupHref)
                 return groupHref;
-            // Crap, gotta build a group.
             return null
+        }
+
+        function createGroup() {
+
+            var createGroupCallback = function(entryRoot) {
+                var entry = entryRoot.entry;
+                var groupName = entry.getTitle().getText();
+                groupHash[groupName] = entry.getId().getValue();
+                groupHashKeys.push(groupName);
+                addContactToGroup();
+            }
+
+            var groupName = $('input#groupinput').val();
+            var groupEntry = new google.gdata.contacts.ContactGroupEntry();
+            groupEntry.setTitle(google.gdata.atom.Text.create(groupName));
+            contacts.Service.insertEntry(groupFeedUri, groupEntry, createGroupCallback, handleError);
+        }
+
+        function addContactToGroup() {
+            var groupHref = getGroupHref()
+            if (groupHref != null){
+                emailSenderContact.addGroupMembershipInfo({deleted: false, href: groupHref})
+                emailSenderContact.updateEntry( function() { appendGroupToList($('input#groupinput').val());}, handleError);
+            } else {
+                createGroup();
+            }
+
         }
             
         // Add contact to contact list.
@@ -194,48 +231,48 @@
 
             //entry.setEmailAddresses([email]);
             entry.addEmailAddress(email);
-            var groupHref = getGroupHref()
-            if (groupHref != null){
-                entry.addGroupMembershipInfo({deleted: false, href: groupHref})
-            }
 
             var callback = function(result) {
-                $('body').append('Added!');
-            }
-
-            var handleError = function(error) {
-                $('body').append('Frig, error:' + error);
+                emailSenderContact = result.entry;
+                addContactAndGroup();
             }
 
             contacts.insertEntry(feedUri, entry, callback, handleError,
                                  google.gdata.contacts.ContactEntry);
         }
 
+        function addContactAndGroup() {
+            if (emailSenderContact == null) {
+                addContact();
+            } else {
+                addContactToGroup();
+            }
+        }
+            
 
         function showGroupTextInput() {
             $("input#groupinput").autocomplete({ source: groupHashKeys });
+            $('input#b').button();
+            $('input#b').click(addContactAndGroup);
             $("div#groupadd").show();
         }
 
         // Generate link and button to create new contact
-        function generateSubmitDiv(emailSender) {
+        function generateSubmitDiv() {
             $('#contactsubmit > h3').append('Add ' + emailSender + ' to contact list?');
-            $('input#b').button();
-            $('input#b').click(addContact);
             $('div#contactsubmit').show('blind', 500);
         }
 
-        function generateInfoDiv(emailSenderContact) {
-            $('body').append("Fixing add contact. v2");
+        function appendGroupToList(groupTitle) {
+            $('ul#grouplist').append('<li>' + groupTitle + '</li>');
+        }
+            
+        function generateInfoDiv() {
             $('div#contactinfo > h3').html(emailSenderContact.getTitle().getText() + ' is a member of the groups:');
             var groupList = emailSenderContact.getGroupMembershipInfos();
 
             var callback = function(result) {
-                    $('ul#grouplist').append('<li>' + result.entry.getTitle().getText() + '</li>');
-            }
-
-            var handleError = function(error) {
-                    $('body').append('Shit, got an error');
+                appendGroupToList(result.entry.getTitle().getText());    
             }
 
             for (var group in groupList) {
@@ -288,7 +325,6 @@
             }
         }
 
-
         function initGadget() {
             gadgets.window.adjustHeight(200);
             $('#loadinggadget').hide('slide');
@@ -328,9 +364,9 @@
                     emailSenderContact = extractGDataContact(response.feed.entry, senderAddress);
                     if (emailSenderContact == null) {
                         // Email author is not in contact list.
-                        generateSubmitDiv(senderAddress);
+                        generateSubmitDiv();
                     } else {
-                        generateInfoDiv(emailSenderContact);
+                        generateInfoDiv();
                     }
 
                 } else {
