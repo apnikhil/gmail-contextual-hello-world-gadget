@@ -70,7 +70,7 @@
         }
         </style>
 
-        <!-- <div id="main" style="display: none">
+        <div id="main" style="display: none">
         </div>
 
         <div id="approval" style="display: none">
@@ -82,7 +82,7 @@
             Please click
             <a href="#" id="approvaldone">I've approved access</a>
             once you've approved access to your data.
-        </div> -->
+        </div>
 
         <div id="loadinggadget"><h2>Loading Gadget</h2></div>
         <div id="loadingjsapi" style="display: none"><h2>Loading JSAPI</h2></div>
