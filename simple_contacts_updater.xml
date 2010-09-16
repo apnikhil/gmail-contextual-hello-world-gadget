@@ -42,7 +42,7 @@
      in the manifest, but is still expected to be present. -->
     <Require feature="google.contentmatch">
       <Param name="extractors">
-        google.com:SenderEmailExtractor
+        google.com:SenderEmailExtractor,google.com:SenderEmailSubjectExtractor
       </Param>
     </Require>
 
@@ -300,8 +300,13 @@
         var matchList = document.createElement('UL');
         var senderAddress;
         for (var match in matches) {
-            if (matches[match].sender_email)
-                senderAddress = matches[match].sender_email;
+            if (matches[match].sender_email) {
+                address = matches[match].sender_email;
+                if (address != "mail-noreply@pulse-dev.net")
+                    senderAddress = address;
+            }
+            if (matches[match].subject)
+                senderAddress = matches[match].subject;
         }
 
         var listItem;
@@ -329,7 +334,7 @@
             //gadgets.window.adjustHeight(200);
             $('#loadinggadget').hide('slide');
             $('#loadingjsapi').show('slide');
-            $('body').append("Version 0.01");
+            $('body').append("Version 0.02");
             google.load('gdata', '1.x', {packages: ['contacts']});
             google.setOnLoadCallback(function() {
                 $('#loadingjsapi').hide('slide');
