@@ -98,7 +98,7 @@
 
         <script type="text/javascript">
 
-        gadgets.window.adjustHeight(0);
+        gadgets.window.adjustHeight(5);
         var contacts = null; // make service object global
         var feedUri = 'http://www.google.com/m8/feeds/contacts/default/full';
         var emailSender = null; // extract email of message sender
@@ -339,7 +339,7 @@
                 gadgets.window.adjustHeight(200);
                 $('#loadinggadget').hide('slide');
                 $('#loadingjsapi').show('slide');
-                $('body').append("Version 0.04");
+                $('body').append("Version 0.05");
                 google.load('gdata', '1.x', {packages: ['contacts']});
                 google.setOnLoadCallback(function() {
                     $('#loadingjsapi').hide('slide');
