@@ -2,7 +2,7 @@
 <Module>
   <ModulePrefs title="Simple Contacts Updater"
     description="Lists and updates contact groups"
-    height="0"
+    height="10"
     author="Tim Gevaert"
     author_email="..."
     author_location="Waterloo Ontario">
@@ -303,7 +303,7 @@
         for (var match in matches) {
             if (matches[match].sender_email) {
                 address = matches[match].sender_email;
-                if (address != "mail-noreply@pulse-dev.net")
+                if (address != "webmaster@localhost")
                     senderAddress = address;
             }
             if (matches[match].subject)
@@ -338,7 +338,7 @@
                 gadgets.window.adjustHeight(200);
                 $('#loadinggadget').hide('slide');
                 $('#loadingjsapi').show('slide');
-                $('body').append("Version 0.03");
+                $('body').append("Version 0.04");
                 google.load('gdata', '1.x', {packages: ['contacts']});
                 google.setOnLoadCallback(function() {
                     $('#loadingjsapi').hide('slide');
