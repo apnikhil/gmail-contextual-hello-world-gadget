@@ -2,7 +2,7 @@
 <Module>
   <ModulePrefs title="Simple Contacts Updater"
     description="Lists and updates contact groups"
-    height="200"
+    height="0"
     author="Tim Gevaert"
     author_email="..."
     author_location="Waterloo Ontario">
@@ -299,6 +299,7 @@
         matches = google.contentmatch.getContentMatches();
         var matchList = document.createElement('UL');
         var senderAddress;
+        var recipientToEmail;
         for (var match in matches) {
             if (matches[match].sender_email) {
                 address = matches[match].sender_email;
@@ -307,6 +308,8 @@
             }
             if (matches[match].subject)
                 senderAddress = matches[match].subject;
+            if (matches[match].recipient_to_email)
+                recipientToEmail = matches[match].recipient_to_email;
         }
 
         var listItem;
@@ -331,17 +334,19 @@
         }
 
         function initGadget() {
-            //gadgets.window.adjustHeight(200);
-            $('#loadinggadget').hide('slide');
-            $('#loadingjsapi').show('slide');
-            $('body').append("Version 0.02");
-            google.load('gdata', '1.x', {packages: ['contacts']});
-            google.setOnLoadCallback(function() {
-                $('#loadingjsapi').hide('slide');
-                contacts = new google.gdata.contacts.ContactsService('yocto-ContactsGadget-0.01');
-                contacts.useOAuth('google');
-                fetchGData();
-                })
+            if (recipientToEmail == "support@allerta.ca") {
+                gadgets.window.adjustHeight(200);
+                $('#loadinggadget').hide('slide');
+                $('#loadingjsapi').show('slide');
+                $('body').append("Version 0.03");
+                google.load('gdata', '1.x', {packages: ['contacts']});
+                google.setOnLoadCallback(function() {
+                    $('#loadingjsapi').hide('slide');
+                    contacts = new google.gdata.contacts.ContactsService('yocto-ContactsGadget-0.01');
+                    contacts.useOAuth('google');
+                    fetchGData();
+                    })
+            }
         }
 
         function fetchGData() {
